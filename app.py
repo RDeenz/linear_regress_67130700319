@@ -1,6 +1,5 @@
-
 # ===== app_319.py =====
-# Streamlit app to predict Sales using trained Linear Regression model
+# Streamlit app with sliders for user input
 # Student ID: 67130700319
 
 import streamlit as st
@@ -10,7 +9,7 @@ import pickle
 # --- Page setup ---
 st.set_page_config(page_title="Sales Prediction App", layout="centered")
 st.title("📊 Sales Prediction using Linear Regression")
-st.write("Enter advertising budgets for each platform below:")
+st.write("Use the sliders below to adjust your advertising budgets:")
 
 # --- Step 1: Load trained model ---
 @st.cache_resource
@@ -21,13 +20,13 @@ def load_model():
 
 model = load_model()
 
-# --- Step 2: User Input ---
-youtube = st.number_input("YouTube Budget", min_value=0.0, value=50.0, step=1.0)
-tiktok = st.number_input("TikTok Budget", min_value=0.0, value=50.0, step=1.0)
-instagram = st.number_input("Instagram Budget", min_value=0.0, value=50.0, step=1.0)
+# --- Step 2: User Input with sliders ---
+youtube = st.slider("📺 YouTube Budget", min_value=0.0, max_value=300.0, value=50.0, step=1.0)
+tiktok = st.slider("🎵 TikTok Budget", min_value=0.0, max_value=300.0, value=50.0, step=1.0)
+instagram = st.slider("📸 Instagram Budget", min_value=0.0, max_value=300.0, value=50.0, step=1.0)
 
-# --- Step 3: Predict ---
-if st.button("Predict Sales"):
+# --- Step 3: Predict when button clicked ---
+if st.button("🔮 Predict Sales"):
     new_data = pd.DataFrame({
         "youtube": [youtube],
         "tiktok": [tiktok],
